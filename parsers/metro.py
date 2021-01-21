@@ -1,25 +1,26 @@
 from bs4 import BeautifulSoup
 from scripts import *
 from _settings import *
+from colorama import Fore
 
 
 class MetroParser:
     def parse(self):
         buckwheats = []
 
-        pages = self.getPagesCount()
-        print('count of pages:', pages)
+        # pages = self.getPagesCount()
+        pages = 1
+        print(' - count of pages:', pages)
         for page in range(1, pages + 1):
-                print('page:', page)
+                print(' - page:', page)
                 page = getPage(METRO_URL + f'?page={page}')
-                
 
                 try:
                     soup = BeautifulSoup(page.text, MARKUP)
                     
                     products = soup.find_all('div', class_='products-box__list-item')
                 except Exception as e:
-                    print('error', e, sep=' | ')
+                    print(Fore.RED, 'error', e, Fore.RESET, sep=' | ')
                 else:
                     extraBuckwheats = self.parseProducts(products)
                     buckwheats += extraBuckwheats
@@ -38,7 +39,7 @@ class MetroParser:
                     productPrice = float(product.find('span', class_='Price__value_caption').text)
 
                 except Exception as e:
-                    print('error', 'can not get a price', e, sep=' | ')
+                    print(Fore.RED, 'error', 'can not get a price', e, Fore.RESET, sep=' | ')
                     productPrice = None
                 
                 productPage = getPage(productHref)
@@ -58,19 +59,19 @@ class MetroParser:
                     else:
                         productWeight = float(productWeight[:index])
                 except Exception as e:
-                    print('error', 'can not get a weight', e, sep=' | ')
+                    print(Fore.RED, 'error', 'can not get a weight', e, Fore.RESET, sep=' | ')
 
 
                 productCountry = None
                 try:
                     productCountry = characteristicsDict['Країна походження']
                 except Exception as e:
-                    print('error', 'can not get a country', e, sep=' | ')
+                    print(Fore.RED, 'error', 'can not get a country', e, Fore.RESET, sep=' | ')
 
                 try:
                     price_g = productPrice / productWeight
                 except Exception as e:
-                    print('error', e, sep=' | ')
+                    print(Fore.RED, 'error', e, Fore.RESET, sep=' | ')
                     price_g = None
 
                 buckwheat = {
@@ -85,7 +86,7 @@ class MetroParser:
 
                 buckwheats.append(buckwheat)
             except Exception as e:
-                print('error', e, sep=' | ')
+                print(Fore.RED, 'error', e, Fore.RESET, sep=' | ')
 
         return buckwheats
 
@@ -96,22 +97,25 @@ class MetroParser:
                 key = characteristic.find(class_='big-product-card__entry-title').text
                 value = characteristic.find(class_='big-product-card__entry-value').text
             except Exception as e:
-                print('error', e, sep=' | ')
+                print(Fore.RED, 'error', e, Fore.RESET, sep=' | ')
             else:
                 characteristicsDict.update([(key, value)])
 
         return characteristicsDict
+
+    def __str__(self):
+        return 'MetroParser'
     
-    def getPagesCount(self):
-        page = getPage(ROZETKA_URL)
-        try:
-            soup = BeautifulSoup(page.text, MARKUP)
-            pages = soup.find_all('a', class_='pagination__item')
-            count = int(pages[len(pages) - 1].text)
-        except Exception as e:
-            print('error', e, sep=' | ')
-            return 1
-        else:
-            return count
+    # def getPagesCount(self):
+    #     page = getPage(ROZETKA_URL)
+    #     try:
+    #         soup = BeautifulSoup(page.text, MARKUP)
+    #         pages = soup.find_all('a', class_='pagination__item')
+    #         count = int(pages[len(pages) - 1].text)
+    #     except Exception as e:
+    #         print('error', e, sep=' | ')
+    #         return 1
+    #     else:
+    #         return count
 
 

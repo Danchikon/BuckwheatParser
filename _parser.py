@@ -1,5 +1,6 @@
 from time import sleep
 from parsers.rozetka import *
+from colorama import Fore
 
 
 class BuckwheatParser:
@@ -12,6 +13,7 @@ class BuckwheatParser:
         documents = []
         # scrapMetro()
         for parser in self.parsers:
+            print(Fore.BLUE, f'<- {parser} started ->', Fore.RESET)
             buckwheat = parser.parse()
             documents += buckwheat
 
@@ -22,7 +24,9 @@ class BuckwheatParser:
             self.dataBase.drop_collection('buckwheat_groats')
             self.dataBase.buckwheat_groats.insert_many(docs)
         except Exception as e:
-            print('error', 'can not update db', e, sep=' | ')
+            print(Fore.RED, 'error', 'can not update db', e, Fore.RESET, sep=' | ')
+        else:
+            print(Fore.GREEN, '- db successfully updated -', Fore.RESET)
 
     # def updateChartsInfo(self):
     #     while self.status:
