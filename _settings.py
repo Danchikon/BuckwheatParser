@@ -1,4 +1,4 @@
-METRO_URL = "https://bel.metro-cc.ru/category/bakaleya/krupy-bobovye"
+METRO_URL = "https://metro.zakaz.ua/uk/categories/buckwheat-metro/"
 ROZETKA_URL = "https://rozetka.com.ua/ua/krupy/c4628397/"
 PROM_URL = ""
 

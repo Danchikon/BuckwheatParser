@@ -1,6 +1,7 @@
 from _parser import BuckwheatParser
 from _settings import *
 from parsers.rozetka import RozetkaParser
+from parsers.metro import MetroParser
 import pymongo
 
 
@@ -10,7 +11,7 @@ def main():
     except Exception as e:
         print('error', 'can not connect to the mongo client', e, sep=' | ')
     else:
-        parsers = [RozetkaParser(), ]  # [RozetkaParser(), MetroParser(), PromParser()]
+        parsers = [RozetkaParser(), MetroParser(),  ]  # [RozetkaParser(), MetroParser(), PromParser()]
 
         buckwheatParser = BuckwheatParser(parsers, client.buckwheat)
         buckwheatParser.start()
