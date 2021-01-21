@@ -2,13 +2,13 @@ from time import sleep
 from parsers.rozetka import *
 
 
-class Parser:
+class BuckwheatParser:
     def __init__(self, parsers, db):
         self.dataBase = db
         self.status = True
         self.parsers = parsers
 
-    def parse(self):
+    def parseBuckwheat(self):
         documents = []
         # scrapMetro()
         for parser in self.parsers:
@@ -34,6 +34,6 @@ class Parser:
     def runScrap(self):
         while self.status:
 
-            self.parse()
+            self.parseBuckwheat()
 
             sleep(DELAY)

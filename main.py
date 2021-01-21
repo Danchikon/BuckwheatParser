@@ -1,4 +1,4 @@
-from _parser import Parser
+from _parser import BuckwheatParser
 from _settings import *
 from parsers.rozetka import RozetkaParser
 import pymongo
@@ -12,7 +12,7 @@ def main():
     else:
         parsers = [RozetkaParser, ]  # [RozetkaParser, MetroParser, PromParser]
 
-        buckwheatParser = Parser(parsers, client.buckwheat)
+        buckwheatParser = BuckwheatParser(parsers, client.buckwheat)
         buckwheatParser.start()
 
 
