@@ -3,8 +3,6 @@ from scripts import *
 from _settings import *
 
 
-
-
 class MetroParser:
     def parse(self):
         buckwheats = []
@@ -27,6 +25,7 @@ class MetroParser:
                     buckwheats += extraBuckwheats
 
         return buckwheats
+
     def parseProducts(self, products):
         buckwheats = []
 
@@ -75,14 +74,13 @@ class MetroParser:
                     price_g = None
 
                 buckwheat = {
-                    
                     'name': productName,
                     'price': productPrice,
                     'price_g': price_g,
                     'weight': productWeight,
                     'country': productCountry,
                     'site': 'Metro',
-                    'link': productHref
+                    'link': 'https://metro.zakaz.ua' + productHref
                 }
 
                 buckwheats.append(buckwheat)
