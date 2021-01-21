@@ -10,7 +10,7 @@ def main():
     except Exception as e:
         print('error', 'can not connect to the mongo client', e, sep=' | ')
     else:
-        parsers = [RozetkaParser, ]  # [RozetkaParser, MetroParser, PromParser]
+        parsers = [RozetkaParser(), ]  # [RozetkaParser(), MetroParser(), PromParser()]
 
         buckwheatParser = BuckwheatParser(parsers, client.buckwheat)
         buckwheatParser.start()
