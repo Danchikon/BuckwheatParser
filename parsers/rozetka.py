@@ -117,6 +117,6 @@ class RozetkaParser:
             count = int(pages[len(pages) - 1].text)
         except Exception as e:
             print('error', e, sep=' | ')
-            return 0
+            return 1
         else:
             return count

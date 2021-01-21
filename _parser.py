@@ -29,9 +29,9 @@ class BuckwheatParser:
     #         sleep(DELAY)
 
     def start(self):
-        self.runScrap()
+        self.runParsing()
 
-    def runScrap(self):
+    def runParsing(self):
         while self.status:
 
             self.parseBuckwheat()
