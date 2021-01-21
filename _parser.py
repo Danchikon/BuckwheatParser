@@ -13,14 +13,14 @@ class BuckwheatParser:
         # scrapMetro()
         for parser in self.parsers:
             buckwheat = parser.parse()
-            documents.append(buckwheat)
+            documents += buckwheat
 
         self.updateDB(documents)
 
-    def updateDB(self, doc):
+    def updateDB(self, docs):
         try:
             self.dataBase.drop_collection('buckwheat_groats')
-            self.dataBase.buckwheat_groats.insert_many(doc)
+            self.dataBase.buckwheat_groats.insert_many(docs)
         except Exception as e:
             print('error', 'can not update db', e, sep=' | ')
 
