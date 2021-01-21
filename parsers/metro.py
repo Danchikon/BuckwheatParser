@@ -33,7 +33,7 @@ class MetroParser:
         for product in products:
             try:
                 title = product.find('a', class_='product-tile')
-                productHref = title['href']
+                productHref = "https://metro.zakaz.ua"+title['href']
                 productName = title['title']
                 try:
                     productPrice = float(product.find('span', class_='Price__value_caption').text)
@@ -42,7 +42,7 @@ class MetroParser:
                     print('error', 'can not get a price', e, sep=' | ')
                     productPrice = None
                 
-                productPage = getPage("https://metro.zakaz.ua"+productHref)
+                productPage = getPage(productHref)
                 soup = BeautifulSoup(productPage.text, MARKUP)
 
                 characteristics = soup\
