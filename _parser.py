@@ -19,7 +19,7 @@ class Parser:
 
     def updateDB(self, doc):
         try:
-            self.dataBase.buckwheat_groats.drop()
+            self.dataBase.drop_collection('buckwheat_groats')
             self.dataBase.buckwheat_groats.insert_many(doc)
         except Exception as e:
             print('error', 'can not update db', e, sep=' | ')
