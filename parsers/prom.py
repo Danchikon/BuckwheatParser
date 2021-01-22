@@ -17,7 +17,7 @@ class PromParser:
                 try:
                     soup = BeautifulSoup(page.text, MARKUP)
                     
-                    products = soup.find_all('div', class_='ek-grid__item')
+                    products = soup.find_all('div', attrs={"data-qaid": "product_block"})
                 except Exception as e:
                     print('error', e, sep=' | ')
                 else:
@@ -44,8 +44,8 @@ class PromParser:
                 soup = BeautifulSoup(productPage.text, MARKUP)
 
                 characteristics = soup\
-                    .find(class_='big-product-card__facts-list')\
-                    .find_all('li', class_='big-product-card__info-entry')
+                    .find(attrs={"data-qaid":'attributes'})\
+                    .find_all('li', class_='ek-list__item')
                 characteristicsDict = self.parseCharacteristics(characteristics)
 
                 productWeight = None
@@ -80,7 +80,7 @@ class PromParser:
                     'weight': productWeight,
                     'country': productCountry,
                     'site': 'Metro',
-                    'link': productHref
+                    'link': "https://prom.ua"+productHref
                 }
 
                 buckwheats.append(buckwheat)
