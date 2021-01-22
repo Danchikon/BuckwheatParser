@@ -1,6 +1,6 @@
 METRO_URL = "https://metro.zakaz.ua/uk/categories/buckwheat-metro/"
 ROZETKA_URL = "https://rozetka.com.ua/ua/krupy/c4628397/"
-PROM_URL = ""
+PROM_URL = "https://prom.ua/search?search_term=%D0%B3%D1%80%D0%B5%D1%87%D0%BA%D0%B0&category=20521"
 
 HEADERS = {
     'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
