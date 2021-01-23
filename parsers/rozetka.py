@@ -32,10 +32,12 @@ class RozetkaParser:
 
         for product in products:
             try:
+                picture = product.find('a', class_='goods-tile__picture')
+                productImage = picture.find(class_='lazy_img_hover')['src']
 
-                title = product.find('a', class_='goods-tile__heading')
-                productHref = title['href']
-                productName = title['title']
+                heading = product.find('a', class_='goods-tile__heading')
+                productHref = heading['href']
+                productName = heading['title']
 
                 try:
                     productPrice = float(product.find('span', class_='goods-tile__price-value').text)
@@ -46,36 +48,16 @@ class RozetkaParser:
                 productPage = getPage(productHref + 'characteristics/')
                 soup = BeautifulSoup(productPage.text, MARKUP)
 
-                characteristics = soup \
-                    .find(class_='characteristics-full__list') \
-                    .find_all('div', class_='characteristics-full__item')
+                characteristics = soup.find_all('div', class_='characteristics-full__item')
+
                 characteristicsDict = self.parseCharacteristics(characteristics)
-
-                # ===================================
-                productWeight = None
-                try:
-                    productWeight = characteristicsDict['Вага']
-                    index = productWeight.find(' ')
-
-                    if productWeight[index + 1:] == 'кг':
-                        productWeight = float(productWeight[:index]) * 1000
-                    else:
-                        productWeight = float(productWeight[:index])
-                except Exception as e:
-                    print(Fore.RED, 'error', 'can not get a weight', e, Fore.RESET, sep=' | ')
-                # ===================================
-                productCountry = None
-                try:
-                    productCountry = characteristicsDict['Країна походження']
-                except Exception as e:
-                    print(Fore.RED, 'error', 'can not get a country', e, Fore.RESET, sep=' | ')
+                productWeight, productCountry = self.getCharacteristics(characteristicsDict)
 
                 try:
                     price_g = productPrice / productWeight
                 except Exception as e:
                     print(Fore.RED, 'error', e, Fore.RESET, sep=' | ')
                     price_g = None
-                # ===================================
 
                 buckwheat = {
 
@@ -85,6 +67,7 @@ class RozetkaParser:
                     'weight': productWeight,
                     'country': productCountry,
                     'site': 'Rozetka',
+                    'image': productImage,
                     'link': productHref
                 }
 
@@ -93,6 +76,36 @@ class RozetkaParser:
                 print(Fore.RED, 'error', e, Fore.RESET, sep=' | ')
 
         return buckwheats
+
+    def getCharacteristics(self, characteristics):
+        # ===================================
+        productWeight = None
+        try:
+            productWeight = characteristics['Вага']
+            index = productWeight.find(' ')
+
+            if productWeight[index + 1:] == 'кг':
+                productWeight = float(productWeight[:index]) * 1000
+            else:
+                productWeight = float(productWeight[:index])
+        except Exception as e:
+            print(Fore.RED, 'error', 'can not get a weight', e, Fore.RESET, sep=' | ')
+        # ===================================
+        productCountry = None
+        try:
+            productCountry = characteristics['Країна-виробник']
+        except Exception as e:
+            print(Fore.RED, 'error', 'can not get a country', e, Fore.RESET, sep=' | ')
+        # ===================================
+
+        try:
+            productCount = int(characteristics['Кількість в упаковці, шт.'])
+        except Exception as e:
+            print(Fore.RED, 'error', 'can not get a count', e, Fore.RESET, sep=' | ')
+        else:
+            productWeight *= productCount
+
+        return productWeight, productCountry
 
     def parseCharacteristics(self, characteristics):
         characteristicsDict = {}
