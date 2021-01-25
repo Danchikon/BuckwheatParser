@@ -60,7 +60,6 @@ class RozetkaParser:
                     price_g = None
 
                 buckwheat = {
-
                     'name': productName,
                     'price': productPrice,
                     'price_g': price_g,

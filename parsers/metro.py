@@ -32,27 +32,20 @@ class MetroParser:
 
         for product in products:
             try:
+                picture = product.find('div', class_='product-tile__image')
+                productImage = picture.find(class_='product-tile__image-i')['src']
+
                 title = product.find('a', class_='product-tile')
                 productHref = title['href']
                 productName = title['title']
                 try:
                     productPrice = float(product.find('span', class_='Price__value_caption').text)
-
                 except Exception as e:
                     print(Fore.RED, 'error', 'can not get a price', e, Fore.RESET, sep=' | ')
                     productPrice = None
-                
-                productPage = getPage("https://metro.zakaz.ua"+productHref)
-                soup = BeautifulSoup(productPage.text, MARKUP)
 
-                characteristics = soup\
-                    .find(class_='big-product-card__facts-list')\
-                    .find_all('li', class_='big-product-card__info-entry')
-                characteristicsDict = self.parseCharacteristics(characteristics)
-
-                productWeight = None
                 try:
-                    productWeight = characteristicsDict['Вага']
+                    productWeight = product.find('div', class_='product-tile__weight').text
                     index = productWeight.find(' ')
                     if productWeight[index + 1:] == 'кг':
                         productWeight = float(productWeight[:index]) * 1000
@@ -60,13 +53,7 @@ class MetroParser:
                         productWeight = float(productWeight[:index])
                 except Exception as e:
                     print(Fore.RED, 'error', 'can not get a weight', e, Fore.RESET, sep=' | ')
-
-
-                productCountry = None
-                try:
-                    productCountry = characteristicsDict['Країна походження']
-                except Exception as e:
-                    print(Fore.RED, 'error', 'can not get a country', e, Fore.RESET, sep=' | ')
+                    productWeight = None
 
                 try:
                     price_g = productPrice / productWeight
@@ -79,8 +66,9 @@ class MetroParser:
                     'price': productPrice,
                     'price_g': price_g,
                     'weight': productWeight,
-                    'country': productCountry,
+                    'country': None,
                     'site': 'Metro',
+                    'image': productImage,
                     'link': 'https://metro.zakaz.ua' + productHref
                 }
 
@@ -90,32 +78,19 @@ class MetroParser:
 
         return buckwheats
 
-    def parseCharacteristics(self, characteristics):
-        characteristicsDict = {}
-        for characteristic in characteristics:
-            try:
-                key = characteristic.find(class_='big-product-card__entry-title').text
-                value = characteristic.find(class_='big-product-card__entry-value').text
-            except Exception as e:
-                print(Fore.RED, 'error', e, Fore.RESET, sep=' | ')
-            else:
-                characteristicsDict.update([(key, value)])
-
-        return characteristicsDict
-
     def __str__(self):
         return 'MetroParser'
     
-    def getPagesCount(self):
-        page = getPage(METRO_URL)
-        try:
-            soup = BeautifulSoup(page.text, MARKUP)
-            pages = soup.find_all('a', class_='pagination__item')
-            count = int(pages[len(pages) - 1].text)
-        except Exception as e:
-            print('error', e, sep=' | ')
-            return 1
-        else:
-            return count
+    # def getPagesCount(self):
+    #     page = getPage(METRO_URL)
+    #     try:
+    #         soup = BeautifulSoup(page.text, MARKUP)
+    #         pages = soup.find_all('a', class_='pagination__item')
+    #         count = int(pages[len(pages) - 1].text)
+    #     except Exception as e:
+    #         print('error', e, sep=' | ')
+    #         return 1
+    #     else:
+    #         return count
 
 
