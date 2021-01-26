@@ -48,7 +48,7 @@ class PromParser:
                     print(Fore.RED, 'error', 'can not get a price', e, Fore.RESET, sep=' | ')
                     productPrice = None
 
-                imageQaid = soup.find('span', attrs={"data-qaid": "image_block"})
+                imageQaid = soup.find('div', attrs={"data-qaid": "image_block"})
                 productImage = imageQaid.find('img')['src']
 
                 characteristics = soup.find('li', attrs={"data-qaid": "attributes"}).find_all(class_='ek-grid')
