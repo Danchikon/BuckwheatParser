@@ -18,13 +18,29 @@ class BuckwheatParser:
             buckwheat = parser.parse()
             documents += buckwheat
 
-        self.updateDB(documents)
+        self.updateDB(self.sortDoc(documents))
+
+    def sortDoc(self, docs):
+        res = docs
+        for i in range(len(res)):
+            for j in range(len(res)):
+                try:
+                    if res[i]['price'] < res[j]['price']:
+                        temp = res[i]
+                        res[i] = res[j]
+                        res[j] = temp
+                except:
+                    temp = res[i]
+                    res[i] = res[j]
+                    res[j] = temp
+        return res
 
     def updateDB(self, docs):
         try:
             self.dataBase.drop_collection('buckwheat_groats')
             sleep(1)
             self.dataBase.buckwheat_groats.insert_many(docs)
+            self.dataBase.buckwheat_groats.create_index([('name', 'text')])
         except Exception as e:
             print(Fore.RED, 'error', 'can not update db', e, Fore.RESET, sep=' | ')
         else:
@@ -54,7 +70,7 @@ class BuckwheatParser:
             pass
         else:
             tm = localtime(time())
-            self.dataBase.chrats_info.insert({
+            self.dataBase.charts_info.insert({
                 'avr_price': avr_price,
                 'year': tm.tm_year,
                 'month': tm.tm_mon,

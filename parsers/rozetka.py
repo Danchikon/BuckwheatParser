@@ -39,11 +39,7 @@ class RozetkaParser:
                 productHref = heading['href']
                 productName = heading['title']
 
-                try:
-                    productPrice = float(product.find('span', class_='goods-tile__price-value').text)
-                except Exception as e:
-                    print(Fore.RED, 'error', 'can not get a price', e, Fore.RESET, sep=' | ')
-                    productPrice = None
+                productPrice = float(product.find('span', class_='goods-tile__price-value').text)
 
                 productPage = getPage(productHref + 'characteristics/')
                 soup = BeautifulSoup(productPage.text, MARKUP)

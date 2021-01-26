@@ -38,11 +38,8 @@ class MetroParser:
                 title = product.find('a', class_='product-tile')
                 productHref = title['href']
                 productName = title['title']
-                try:
-                    productPrice = float(product.find('span', class_='Price__value_caption').text)
-                except Exception as e:
-                    print(Fore.RED, 'error', 'can not get a price', e, Fore.RESET, sep=' | ')
-                    productPrice = None
+
+                productPrice = float(product.find('span', class_='Price__value_caption').text)
 
                 try:
                     productWeight = product.find('div', class_='product-tile__weight').text

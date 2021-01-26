@@ -40,13 +40,8 @@ class PromParser:
                 productPage = getPage(productHref)
                 soup = BeautifulSoup(productPage.text, MARKUP)
 
-                try:
-                    priceQaid = soup.find('span', attrs={"data-qaid": "product_price"})
-                    productPrice = float(priceQaid['data-qaprice'])
-
-                except Exception as e:
-                    print(Fore.RED, 'error', 'can not get a price', e, Fore.RESET, sep=' | ')
-                    productPrice = None
+                priceQaid = soup.find('span', attrs={"data-qaid": "product_price"})
+                productPrice = float(priceQaid['data-qaprice'])
 
                 imageQaid = soup.find('div', attrs={"data-qaid": "image_block"})
                 productImage = imageQaid.find('img')['src']
