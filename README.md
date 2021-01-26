@@ -2,7 +2,7 @@
 ## Parser | [Site](https://github.com/Danchikon/BuckwheatSite/)
 [link](https://shrouded-springs-81582.herokuapp.com/)
 
-![Project Image](https://github.com/Danchikon/BuckwheatSite/blob/dev/r_logo.jpg)
+![Project Image](https://github.com/Danchikon/BuckwheatSite/blob/master/r_logo.jpg)
 ---
 
 ### Table of Contents
@@ -17,7 +17,11 @@
 
 This parser is used to get data from websites about buckwheat price and send it in database.
 
+Here you can see our db structure for products
+![dbPhoto](https://github.com/Danchikon/BuckwheatParser/blob/master/db.jpg)
 
+Here for graph
+![dbGraph](https://github.com/Danchikon/BuckwheatParser/blob/master/db_charts.jpg)
 
 #### Technologies
 
