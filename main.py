@@ -6,9 +6,6 @@ from parsers.prom import PromParser
 import colorama
 from colorama import Fore
 import pymongo
-import socket
-
-print(socket.gethostbyname(socket.gethostname()))
 
 
 def main():
