@@ -11,7 +11,7 @@ import pymongo
 def main():
     try:
         colorama.init()
-        client = pymongo.MongoClient(MONGO_CONNECTION, connectTimeoutMS=9999999999, socketTimeoutMS=9999999999)
+        client = pymongo.MongoClient(MONGO_CONNECTION, connectTimeoutMS=999999999, socketTimeoutMS=999999999)
     except Exception as e:
         print(Fore.RED, 'error', 'can not connect to the mongo client', e, Fore.RESET, sep=' | ')
     else:
