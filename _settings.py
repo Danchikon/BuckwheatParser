@@ -12,6 +12,6 @@ DELAY = 60 * 60
 
 MARKUP = 'html.parser'
 
-MONGO_CONNECTION = 'mongodb+srv://User:772298NOne@hrechkacluster.m9aqq.mongodb.net/buckwheat?retryWrites=true&w=majority'
+MONGO_CONNECTION = 'mongodb+srv://User:772298NOne@cluster0.m9aqq.mongodb.net/buckwheat?retryWrites=true&w=majority'
 
 
