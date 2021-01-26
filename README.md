@@ -53,9 +53,10 @@ Step 1 | Clone this project and [parser](https://github.com/Danchikon/BuckwheatP
 
 
 ###### [Python](https://www.python.org/downloads/):
-        ```python
-          pip install -r requirements.txt
-        ```
+
+```python
+  pip install -r requirements.txt
+```
 
   Step 3 | Run web application
 
