@@ -1,8 +1,8 @@
 # HrechkaPlanet by JWP
-## Parser
+## Parser | [Site](https://github.com/Danchikon/BuckwheatSite/)
 [link](https://shrouded-springs-81582.herokuapp.com/)
 
-![Project Image](https://github.com/Danchikon/BuckwheatSite/blob/dev/r_logo.jpg)
+![Project Image](https://github.com/Danchikon/BuckwheatSite/blob/master/r_logo.jpg)
 ---
 
 ### Table of Contents
@@ -17,7 +17,11 @@
 
 This parser is used to get data from websites about buckwheat price and send it in database.
 
+Here you can see our db structure for products
+![dbPhoto](https://github.com/Danchikon/BuckwheatParser/blob/master/db.jpg)
 
+Here for graph
+![dbGraph](https://github.com/Danchikon/BuckwheatParser/blob/master/db_charts.jpg)
 
 #### Technologies
 
@@ -31,9 +35,12 @@ This parser is used to get data from websites about buckwheat price and send it 
 
 ## How To Use
 
-Step 1 | Navigate to [webpage]()
+Step 1 | Open cmd in Buckwheat directory
 
-Step 2 | Explore and enjoy
+Step 2 | Run main.py
+```cmd
+  py main.py
+```
 
 After the website is loaded you can start using it and start searching straight away. By default you will see buckwheat from different stores sorted by price. You can adjust filters how you wish and search other products too. Also if you press "Графік цін" button you will see buckwheat price graph.
 
