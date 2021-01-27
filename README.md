@@ -42,7 +42,7 @@ Step 2 | Run main.py
   py main.py
 ```
 
-After the website is loaded you can start using it and start searching straight away. By default you will see buckwheat from different stores sorted by price. You can adjust filters how you wish and search other products too. Also if you press "Графік цін" button you will see buckwheat price graph.
+
 
 
 [Back To The Top](#hrechkaplanet-by-jwp)
